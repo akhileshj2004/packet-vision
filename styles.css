@@ -56,7 +56,9 @@ a {
 section {
     padding: 5rem 2rem;
 }
-
+.earth1{
+    margin-top:2rem ;
+}
 /* Particles Background */
 #particles-js {
     position: fixed;
