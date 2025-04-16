@@ -161,3 +161,113 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 });
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('model-form');
+    const inputSummary = document.getElementById('input-summary');
+    const analysisResults = document.getElementById('analysis-results');
+    const analysisLogs = document.getElementById('analysis-logs');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        analysisResults.innerHTML = `
+            <div class="loading-animation">
+                <div class="cyber-spinner"></div>
+                <p>Analyzing network traffic...</p>
+            </div>
+        `;
+        
+        // Get form data
+        const formData = {
+            flowDuration: parseFloat(document.getElementById('flow-duration').value),
+            totalFwdPackets: parseFloat(document.getElementById('total-fwd-packets').value),
+            totalBackwardPackets: parseFloat(document.getElementById('total-backward-packets').value),
+            fwdPacketLengthMax: parseFloat(document.getElementById('fwd-packet-length-max').value),
+            bwdPacketLengthMax: parseFloat(document.getElementById('bwd-packet-length-max').value)
+        };
+        
+        // Display input summary
+        inputSummary.innerHTML = `
+            <ul class="summary-list">
+                <li><strong>Flow Duration:</strong> ${formData.flowDuration}</li>
+                <li><strong>Total Fwd Packets:</strong> ${formData.totalFwdPackets}</li>
+                <li><strong>Total Backward Packets:</strong> ${formData.totalBackwardPackets}</li>
+                <li><strong>Fwd Packet Length Max:</strong> ${formData.fwdPacketLengthMax}</li>
+                <li><strong>Bwd Packet Length Max:</strong> ${formData.bwdPacketLengthMax}</li>
+            </ul>
+        `;
+        
+        // Add log entry
+        addLog('SYSTEM', 'Processing input data...');
+        
+        // Send data to API
+        fetch('http://localhost:5000/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // Display results
+                const confidencePercent = (data.confidence * 100).toFixed(2);
+                
+                analysisResults.innerHTML = `
+                    <div class="result-card ${data.prediction.toLowerCase().includes('attack') ? 'attack' : 'normal'}">
+                        <h5>Traffic Classification</h5>
+                        <div class="result-value">${data.prediction}</div>
+                        <div class="confidence-meter">
+                            <div class="confidence-label">Model Confidence: ${confidencePercent}%</div>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: ${confidencePercent}%"></div>
+                            </div>
+                        </div>
+                        ${data.prediction.toLowerCase().includes('attack') ? 
+                            '<div class="alert-banner"><i class="fas fa-exclamation-triangle"></i> POTENTIAL ATTACK DETECTED</div>' : 
+                            '<div class="success-banner"><i class="fas fa-check-circle"></i> NORMAL TRAFFIC</div>'}
+                    </div>
+                `;
+                
+                addLog('RESULT', `Analysis complete: ${data.prediction} (${confidencePercent}% confidence)`);
+            } else {
+                analysisResults.innerHTML = `
+                    <div class="error-card">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Error processing request: ${data.message}</p>
+                    </div>
+                `;
+                addLog('ERROR', `Analysis failed: ${data.message}`);
+            }
+        })
+        .catch(error => {
+            analysisResults.innerHTML = `
+                <div class="error-card">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p>Network error: ${error.message}</p>
+                </div>
+            `;
+            addLog('ERROR', `Network error: ${error.message}`);
+        });
+    });
+    
+    function addLog(type, message) {
+        const now = new Date();
+        const timestamp = now.toISOString().replace('T', ' ').substring(0, 19);
+        
+        const logEntry = document.createElement('div');
+        logEntry.className = `log-entry ${type.toLowerCase()}`;
+        logEntry.innerHTML = `
+            <span class="log-timestamp">[${type}] ${timestamp}</span>
+            <span class="log-message">${message}</span>
+        `;
+        
+        analysisLogs.prepend(logEntry);
+    }
+});
