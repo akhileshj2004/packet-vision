@@ -176,3 +176,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     });
 });
+
+
+
+// Function to remove the Spline logo
+function removeSplineLogo() {
+    // Access the shadow DOM of spline-viewer
+    const splineViewer = document.querySelector('spline-viewer');
+    if (!splineViewer) return;
+    
+    const shadowRoot = splineViewer.shadowRoot;
+    if (!shadowRoot) return;
+    
+    // Find and remove the logo element
+    const logo = shadowRoot.getElementById('logo');
+    if (logo) {
+      logo.remove();
+      console.log('Spline logo removed successfully');
+    }
+  }
+  
+  // Set up MutationObserver to watch for changes
+  const observer = new MutationObserver((mutations) => {
+    removeSplineLogo();
+  });
+  
+  // Start observing
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+  
+  // Initial attempt
+  removeSplineLogo();
