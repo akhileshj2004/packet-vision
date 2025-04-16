@@ -258,4 +258,58 @@ document.addEventListener('DOMContentLoaded', () => {
             anomalyValue.textContent = newCount;
         }
     }
+
+    // Initialize visualizations container
+    initVisualizationContainers();
+    
+    // Poll for visualization updates - simulating backend integration
+    setInterval(checkForVisualizations, 3000);
 });
+
+function initVisualizationContainers() {
+    // Initialize containers for the Python-generated visualizations
+    const containers = [
+        'viz-3d-scatter',
+        'viz-protocol-barchart',
+        'viz-label-piechart',
+        'viz-3d-packetlength',
+        'viz-3d-radar'
+    ];
+    
+    containers.forEach(containerId => {
+        const container = document.getElementById(containerId);
+        if (container) {
+            // Container is ready for Python-generated content
+            console.log(`Visualization container ${containerId} initialized`);
+        }
+    });
+}
+
+function checkForVisualizations() {
+    // This function would normally poll the backend for visualization updates
+    // For now, it's just a placeholder for the backend integration
+    
+    // Simulate status changes
+    const statusBox = document.querySelector('.stat-value');
+    if (statusBox) {
+        const statuses = ['RUNNING', 'ANALYZING', 'COMPLETE'];
+        const currentStatus = statusBox.textContent;
+        const nextStatus = statuses[(statuses.indexOf(currentStatus) + 1) % statuses.length];
+        
+        statusBox.textContent = nextStatus;
+        
+        // Change color based on status
+        statusBox.className = 'stat-value';
+        switch (nextStatus) {
+            case 'RUNNING':
+                statusBox.classList.add('running');
+                break;
+            case 'ANALYZING':
+                statusBox.classList.add('warning');
+                break;
+            case 'COMPLETE':
+                statusBox.classList.add('good');
+                break;
+        }
+    }
+}
