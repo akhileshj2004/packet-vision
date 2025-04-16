@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attack Identification - Packet Vision</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="model.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Particle background -->
+    <div id="particles-js"></div>
+
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html">
+                    <span class="logo-text">PACKET<span class="highlight">VISION</span></span>
+                </a>
+            </div>
+            <div class="menu-btn">
+                <div class="menu-btn__burger"></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../index.html#why-packet-vision" class="nav-link">Why Us</a></li>
+                <li><a href="../index.html#technical" class="nav-link">Technical</a></li>
+                <li><a href="../index.html#services" class="nav-link">Services</a></li>
+                <li><a href="../index.html#team" class="nav-link">Team</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Attack Identification Section -->
+    <section class="model-section">
+        <div class="section-header">
+            <h2>Attack <span class="highlight">Identification</span></h2>
+            <div class="cyber-line"></div>
+        </div>
+        <div class="model-content">
+            <div class="model-intro">
+                <p>Our machine learning models provide real-time detection of various DDoS attack types with high accuracy, allowing for timely mitigation before services are disrupted.</p>
+            </div>
+            
+            <div class="model-grid">
+                <div class="model-card full-width">
+                    <h3>ML Detection Performance</h3>
+                    <div class="model-metrics">
+                        <div class="metric-box">
+                            <div class="metric-circle">
+                                <svg viewBox="0 0 36 36" class="circular-chart">
+                                    <path class="circle-bg" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                    <path class="circle" stroke-dasharray="95, 100" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                    <text x="18" y="20.35" class="percentage">95%</text>
+                                </svg>
+                            </div>
+                            <p>Detection Accuracy</p>
+                        </div>
+                        
+                        <div class="metric-box">
+                            <div class="metric-circle">
+                                <svg viewBox="0 0 36 36" class="circular-chart green">
+                                    <path class="circle-bg" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                    <path class="circle" stroke-dasharray="98, 100" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                    <text x="18" y="20.35" class="percentage">98%</text>
+                                </svg>
+                            </div>
+                            <p>Precision</p>
+                        </div>
+                        
+                        <div class="metric-box">
+                            <div class="metric-circle">
+                                <svg viewBox="0 0 36 36" class="circular-chart purple">
+                                    <path class="circle-bg" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                    <path class="circle" stroke-dasharray="92, 100" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                    <text x="18" y="20.35" class="percentage">92%</text>
+                                </svg>
+                            </div>
+                            <p>Recall</p>
+                        </div>
+                        
+                        <div class="metric-box">
+                            <div class="metric-circle">
+                                <svg viewBox="0 0 36 36" class="circular-chart yellow">
+                                    <path class="circle-bg" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                    <path class="circle" stroke-dasharray="93, 100" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                    <text x="18" y="20.35" class="percentage">93%</text>
+                                </svg>
+                            </div>
+                            <p>F1 Score</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="model-card">
+                    <h3>Attack Classification Distribution</h3>
+                    <div class="model-chart-container">
+                        <canvas id="attackTypeChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="model-card">
+                    <h3>Detection Response Time</h3>
+                    <div class="model-chart-container">
+                        <canvas id="responseTimeChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="model-card full-width">
+                    <h3>Model Confusion Matrix</h3>
+                    <div class="confusion-matrix">
+                        <table class="matrix-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>SYN Flood</th>
+                                    <th>UDP Flood</th>
+                                    <th>HTTP Flood</th>
+                                    <th>DNS Amp</th>
+                                    <th>Normal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>SYN Flood</td>
+                                    <td class="highlight-cell">98%</td>
+                                    <td>1%</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                    <td>1%</td>
+                                </tr>
+                                <tr>
+                                    <td>UDP Flood</td>
+                                    <td>2%</td>
+                                    <td class="highlight-cell">96%</td>
+                                    <td>1%</td>
+                                    <td>1%</td>
+                                    <td>0%</td>
+                                </tr>
+                                <tr>
+                                    <td>HTTP Flood</td>
+                                    <td>0%</td>
+                                    <td>2%</td>
+                                    <td class="highlight-cell">95%</td>
+                                    <td>1%</td>
+                                    <td>2%</td>
+                                </tr>
+                                <tr>
+                                    <td>DNS Amp</td>
+                                    <td>0%</td>
+                                    <td>1%</td>
+                                    <td>2%</td>
+                                    <td class="highlight-cell">97%</td>
+                                    <td>0%</td>
+                                </tr>
+                                <tr>
+                                    <td>Normal</td>
+                                    <td>1%</td>
+                                    <td>0%</td>
+                                    <td>2%</td>
+                                    <td>0%</td>
+                                    <td class="highlight-cell">97%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="live-detection">
+                <h3>Live <span class="highlight">Detection</span></h3>
+                <div class="detection-list">
+                    <div class="detection-item">
+                        <div class="detection-time">12:35:42</div>
+                        <div class="detection-type warning">SYN Flood</div>
+                        <div class="detection-source">Source: 104.XX.XX.XX</div>
+                        <div class="detection-confidence">Confidence: 98.2%</div>
+                        <div class="detection-status">Status: <span class="status-blocked">Blocked</span></div>
+                    </div>
+                    
+                    <div class="detection-item">
+                        <div class="detection-time">12:30:18</div>
+                        <div class="detection-type danger">UDP Flood</div>
+                        <div class="detection-source">Source: Multiple</div>
+                        <div class="detection-confidence">Confidence: 95.7%</div>
+                        <div class="detection-status">Status: <span class="status-blocked">Blocked</span></div>
+                    </div>
+                    
+                    <div class="detection-item">
+                        <div class="detection-time">11:47:03</div>
+                        <div class="detection-type warning">HTTP Flood</div>
+                        <div class="detection-source">Source: 185.XX.XX.XX</div>
+                        <div class="detection-confidence">Confidence: 92.3%</div>
+                        <div class="detection-status">Status: <span class="status-blocked">Blocked</span></div>
+                    </div>
+                    
+                    <div class="detection-item">
+                        <div class="detection-time">10:22:51</div>
+                        <div class="detection-type danger">DNS Amplification</div>
+                        <div class="detection-source">Source: Multiple</div>
+                        <div class="detection-confidence">Confidence: 97.8%</div>
+                        <div class="detection-status">Status: <span class="status-blocked">Blocked</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="cyber-line"></div>
+        <p>&copy; 2025 Team Catalysts. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="../script.js"></script>
+    <script src="model.js"></script>
+</body>
+</html>

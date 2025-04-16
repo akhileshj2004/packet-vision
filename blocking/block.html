@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Blocking - Packet Vision</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="block.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Particle background -->
+    <div id="particles-js"></div>
+
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html">
+                    <span class="logo-text">PACKET<span class="highlight">VISION</span></span>
+                </a>
+            </div>
+            <div class="menu-btn">
+                <div class="menu-btn__burger"></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../index.html#why-packet-vision" class="nav-link">Why Us</a></li>
+                <li><a href="../index.html#technical" class="nav-link">Technical</a></li>
+                <li><a href="../index.html#services" class="nav-link">Services</a></li>
+                <li><a href="../index.html#team" class="nav-link">Team</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- IP Blocking Section -->
+    <section class="block-section">
+        <div class="section-header">
+            <h2>IP <span class="highlight">Blocking</span></h2>
+            <div class="cyber-line"></div>
+        </div>
+        <div class="block-content">
+            <div class="block-intro">
+                <p>Packet Vision's automated IP blocking system filters out malicious traffic in real-time, protecting your network infrastructure from DDoS attacks while maintaining legitimate traffic flow.</p>
+            </div>
+            
+            <div class="block-grid">
+                <div class="block-card">
+                    <h3>Blocking Statistics</h3>
+                    <div class="block-chart-container">
+                        <canvas id="blockingChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="block-card">
+                    <h3>Geographic Distribution</h3>
+                    <div class="block-chart-container">
+                        <canvas id="geoBlockChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="block-card full-width">
+                    <h3>Manual IP Blocking</h3>
+                    <div class="block-form">
+                        <div class="form-group">
+                            <label for="ip-address">IP Address</label>
+                            <input type="text" id="ip-address" placeholder="Enter IP address (e.g. 192.168.1.1)" class="cyber-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="block-reason">Reason</label>
+                            <select id="block-reason" class="cyber-select">
+                                <option value="">Select reason</option>
+                                <option value="suspicious">Suspicious Activity</option>
+                                <option value="ddos">DDoS Attack</option>
+                                <option value="brute">Brute Force Attempt</option>
+                                <option value="spam">Spam</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="block-duration">Duration</label>
+                            <select id="block-duration" class="cyber-select">
+                                <option value="1">1 Hour</option>
+                                <option value="24" selected>24 Hours</option>
+                                <option value="72">3 Days</option>
+                                <option value="168">1 Week</option>
+                                <option value="720">1 Month</option>
+                                <option value="perm">Permanent</option>
+                            </select>
+                        </div>
+                        <button class="block-btn" onclick="addBlockedIP()">Block IP</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blocked-ips">
+                <h3>Currently <span class="highlight">Blocked</span> IPs</h3>
+                <div class="ip-filter">
+                    <div class="filter-group">
+                        <input type="text" id="ip-search" placeholder="Search IP..." class="cyber-input">
+                        <select id="filter-reason" class="cyber-select">
+                            <option value="all">All Reasons</option>
+                            <option value="suspicious">Suspicious Activity</option>
+                            <option value="ddos">DDoS Attack</option>
+                            <option value="brute">Brute Force Attempt</option>
+                            <option value="spam">Spam</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ip-table-container">
+                    <table class="ip-table">
+                        <thead>
+                            <tr>
+                                <th>IP Address</th>
+                                <th>Reason</th>
+                                <th>Blocked At</th>
+                                <th>Duration</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blocked-ip-list">
+                            <tr>
+                                <td>104.23.128.45</td>
+                                <td>DDoS Attack</td>
+                                <td>2025-01-15 08:23:15</td>
+                                <td>Permanent</td>
+                                <td><button class="unblock-btn">Unblock</button></td>
+                            </tr>
+                            <tr>
+                                <td>185.176.43.87</td>
+                                <td>Suspicious Activity</td>
+                                <td>2025-01-15 09:45:32</td>
+                                <td>24 Hours</td>
+                                <td><button class="unblock-btn">Unblock</button></td>
+                            </tr>
+                            <tr>
+                                <td>93.184.216.34</td>
+                                <td>Brute Force Attempt</td>
+                                <td>2025-01-14 18:12:07</td>
+                                <td>1 Week</td>
+                                <td><button class="unblock-btn">Unblock</button></td>
+                            </tr>
+                            <tr>
+                                <td>77.88.55.66</td>
+                                <td>DDoS Attack</td>
+                                <td>2025-01-15 10:08:43</td>
+                                <td>Permanent</td>
+                                <td><button class="unblock-btn">Unblock</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="block-stats">
+                <div class="stat-container">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <div class="stat-data">
+                            <h4>Total Blocked</h4>
+                            <p id="total-blocked">387</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="stat-data">
+                            <h4>Traffic Filtered</h4>
+                            <p id="traffic-filtered">98.5%</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="stat-data">
+                            <h4>False Positives</h4>
+                            <p id="false-positives">0.2%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="cyber-line"></div>
+        <p>&copy; 2025 Team Catalysts. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="../script.js"></script>
+    <script src="block.js"></script>
+</body>
+</html>
