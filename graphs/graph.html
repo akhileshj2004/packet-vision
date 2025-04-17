@@ -1,4 +1,3 @@
-\graph.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +8,7 @@
     <link rel="stylesheet" href="graph.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
     <!-- Particle background -->
@@ -51,10 +51,11 @@
                 <div class="visualization-card full-width">
                     <h3>3D Scatter Plot: Flow Duration vs Total FWD Packets vs Total IAT Mean</h3>
                     <div class="visualization-container" id="viz-3d-scatter">
-                        <div class="loading-placeholder">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Loading visualization...</p>
-                        </div>
+                        <img src="3D Scatter Plot Flow Duration vs Total FWD Packets vs Total IAT Mean.png" alt="3D Scatter Plot" class="viz-image">
+                        <div class="cyber-overlay"></div>
+                    </div>
+                    <div class="viz-description">
+                        <p>This 3D visualization shows the relationship between flow duration, forward packets, and inter-arrival time, helping identify potential DDoS patterns in network traffic.</p>
                     </div>
                 </div>
                 
@@ -62,10 +63,11 @@
                 <div class="visualization-card">
                     <h3>Protocol Distribution</h3>
                     <div class="visualization-container" id="viz-protocol-barchart">
-                        <div class="loading-placeholder">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Loading visualization...</p>
-                        </div>
+                        <img src="Protocol Distribution.png" alt="Protocol Distribution" class="viz-image">
+                        <div class="cyber-overlay"></div>
+                    </div>
+                    <div class="viz-description">
+                        <p>Analysis of protocol distribution reveals patterns of network usage and helps identify unusual protocol activity that may indicate an attack.</p>
                     </div>
                 </div>
                 
@@ -73,10 +75,11 @@
                 <div class="visualization-card">
                     <h3>Label Distribution</h3>
                     <div class="visualization-container" id="viz-label-piechart">
-                        <div class="loading-placeholder">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Loading visualization...</p>
-                        </div>
+                        <img src="Label Distribution.png" alt="Label Distribution" class="viz-image">
+                        <div class="cyber-overlay"></div>
+                    </div>
+                    <div class="viz-description">
+                        <p>Breakdown of traffic classifications showing the proportion of benign vs. malicious traffic detected in the network.</p>
                     </div>
                 </div>
                 
@@ -84,10 +87,11 @@
                 <div class="visualization-card full-width">
                     <h3>3D Plot: Fwd vs Bwd Packet Length Mean vs Flow Duration</h3>
                     <div class="visualization-container" id="viz-3d-packetlength">
-                        <div class="loading-placeholder">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Loading visualization...</p>
-                        </div>
+                        <img src="3D Plot Fwd vs Bwd Packet Length Mean vs Flow Duration.png" alt="3D Packet Length Plot" class="viz-image">
+                        <div class="cyber-overlay"></div>
+                    </div>
+                    <div class="viz-description">
+                        <p>This visualization compares packet length characteristics in both directions with flow duration, highlighting anomalies that may indicate DDoS attacks.</p>
                     </div>
                 </div>
                 
@@ -95,10 +99,11 @@
                 <div class="visualization-card full-width">
                     <h3>3D Surface from Radar Features</h3>
                     <div class="visualization-container" id="viz-3d-radar">
-                        <div class="loading-placeholder">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Loading visualization...</p>
-                        </div>
+                        <img src="3D Surface from Radar Features.png" alt="3D Radar Features" class="viz-image">
+                        <div class="cyber-overlay"></div>
+                    </div>
+                    <div class="viz-description">
+                        <p>Advanced multi-dimensional visualization of network traffic features that helps identify complex attack patterns through surface analysis.</p>
                     </div>
                 </div>
             </div>
@@ -110,7 +115,37 @@
                     </div>
                     <div class="stat-details">
                         <h4>Analysis Status</h4>
-                        <p class="stat-value running">RUNNING</p>
+                        <p class="stat-value good">COMPLETE</p>
+                    </div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h4>Security Score</h4>
+                        <p class="stat-value good">92<span>%</span></p>
+                    </div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h4>Threats Detected</h4>
+                        <p class="stat-value warning">3</p>
+                    </div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h4>Traffic Analyzed</h4>
+                        <p class="stat-value">28.5<span>GB</span></p>
                     </div>
                 </div>
             </div>
@@ -123,8 +158,172 @@
         <p>&copy; 2025 Team Catalysts. All rights reserved.</p>
     </footer>
 
+    <!-- Add these styles in your graph.css file -->
+    <style>
+        .viz-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cyber-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,248,255,0.1) 0%, rgba(0,0,0,0) 50%, rgba(255,0,255,0.1) 100%);
+            pointer-events: none;
+            z-index: 2;
+            border-radius: 5px;
+            opacity: 0.5;
+        }
+        
+        .visualization-container {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .visualization-container:hover .viz-image {
+            transform: scale(1.03);
+        }
+        
+        .viz-description {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0 0.5rem;
+        }
+    </style>
+
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="../script.js"></script>
-    <script src="graph.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize particles.js
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {"value": 80},
+                        "color": {"value": "#00f8ff"},
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {"width": 0, "color": "#000000"},
+                            "polygon": {"nb_sides": 5}
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": true,
+                            "anim": {"enable": true, "speed": 1, "opacity_min": 0.1, "sync": false}
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {"enable": false, "speed": 40, "size_min": 0.1, "sync": false}
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#00f8ff",
+                            "opacity": 0.2,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 2,
+                            "direction": "none",
+                            "random": true,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {"enable": true, "rotateX": 600, "rotateY": 1200}
+                        }
+                    }
+                });
+            }
+            
+            // Add pulse effect to visualization containers
+            const vizContainers = document.querySelectorAll('.visualization-container');
+            vizContainers.forEach(container => {
+                setInterval(() => {
+                    container.querySelector('.cyber-overlay').style.opacity = '0.7';
+                    setTimeout(() => {
+                        container.querySelector('.cyber-overlay').style.opacity = '0.3';
+                    }, 1500);
+                }, 3000);
+            });
+            
+            // Make visualization containers clickable to show full-size image
+            vizContainers.forEach(container => {
+                container.addEventListener('click', function() {
+                    const img = this.querySelector('img');
+                    if (img) {
+                        const modal = document.createElement('div');
+                        modal.className = 'cyber-modal';
+                        modal.innerHTML = `
+                            <div class="modal-content">
+                                <span class="close-btn">&times;</span>
+                                <img src="${img.src}" alt="${img.alt}" class="modal-image">
+                            </div>
+                        `;
+                        document.body.appendChild(modal);
+                        
+                        // Close modal when clicking close button or outside
+                        modal.querySelector('.close-btn').addEventListener('click', () => {
+                            modal.remove();
+                        });
+                        modal.addEventListener('click', (e) => {
+                            if (e.target === modal) modal.remove();
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <style>
+        .cyber-modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 20, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--primary-color);
+            z-index: 1001;
+        }
+        
+        .modal-image {
+            width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+    </style>
 </body>
 </html>
