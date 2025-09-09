@@ -206,7 +206,12 @@ document.addEventListener('DOMContentLoaded', function() {
         addLog('SYSTEM', 'Processing input data...');
         
         // Send data to API
-        fetch('http://localhost:5001/predict', {
+        // Use environment-based API URL for Docker compatibility
+        const apiUrl = window.location.hostname === 'localhost' && window.location.port !== '80'
+            ? 'http://localhost:5001/predict'
+            : '/api/predict';
+        
+        fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
