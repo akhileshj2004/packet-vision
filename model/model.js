@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
         addLog('SYSTEM', 'Processing input data...');
         
         // Send data to API
-        fetch('http://localhost:5000/predict', {
+        fetch('http://localhost:5001/predict', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
